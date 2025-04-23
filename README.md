@@ -30,7 +30,6 @@ It includes fields like:
 
 ### 🔹 Step 1: Data Preprocessing
 - Dropped unnecessary columns: `trans_num`, `cc_num`, `first`, `last`, `merchant`, etc.
-- Extracted time features: `hour`, `day_of_week`, `month` from `trans_date_trans_time`
 - Engineered geospatial feature using Haversine distance
 - One-hot encoded categorical variables like `gender`, `category`
 - Scaled numerical features using `StandardScaler`
