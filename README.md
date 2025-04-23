@@ -26,30 +26,36 @@ It includes fields like:
 
 ---
 
-## 🧪 Techniques Used
+## 📊 Project Steps
 
-- **Data Preprocessing**
-  - Removed high-cardinality and non-informative features
-  - Extracted datetime features (hour, day of week, month)
-  - Engineered geospatial feature (Haversine distance between user and merchant)
-  - Handled categorical features with one-hot encoding
+### 🔹 Step 1: Data Preprocessing
+- Dropped unnecessary columns: `trans_num`, `cc_num`, `first`, `last`, `merchant`, etc.
+- Extracted time features: `hour`, `day_of_week`, `month` from `trans_date_trans_time`
+- Engineered geospatial feature using Haversine distance
+- One-hot encoded categorical variables like `gender`, `category`
+- Scaled numerical features using `StandardScaler`
 
-- **Class Imbalance Handling**
-  - Calculated `scale_pos_weight` for rare class weighting
+### 🔹 Step 2: Class Imbalance Handling
+- Calculated `scale_pos_weight` to balance rare fraud class
+- Ensured the model does not ignore minority class (frauds)
 
-- **Modeling**
-  - Trained and optimized XGBoost using GridSearchCV
-  - Combined XGBoost, Logistic Regression, and Random Forest in a `VotingClassifier`
-  - Applied soft voting to improve performance and reduce variance
+### 🔹 Step 3: Model Training
+- Trained `XGBoost` classifier using `GridSearchCV` for hyperparameter tuning
+- Trained additional models: `LogisticRegression`, `RandomForestClassifier`
 
-- **Threshold Tuning**
-  - Used Precision-Recall curve to find the best decision threshold
-  - Tuned to minimize false positives while maintaining high recall
+### 🔹 Step 4: Ensemble with Voting Classifier
+- Combined all three models into a `VotingClassifier` using soft voting
+- Averaged prediction probabilities to make final decisions
 
-- **Evaluation**
-  - Classification Report (Precision, Recall, F1-Score)
-  - Confusion Matrix
-  - ROC-AUC Score
+### 🔹 Step 5: Threshold Optimization
+- Used precision-recall curve to identify the optimal threshold
+- Converted probabilities to binary predictions using this threshold to minimize false positives
+
+### 🔹 Step 6: Evaluation
+- Evaluated model using:
+  - Confusion matrix
+  - Classification report (precision, recall, F1-score)
+  - ROC-AUC score
 
 ---
 
@@ -62,13 +68,5 @@ This ensemble combines:
 - **Logistic Regression** (strong baseline)
 
 Together, these provide **more stable and accurate predictions**.
-
----
-
-## 📊 Results
-
-- Precision and recall were tuned to reduce false positives
-- Ensemble outperformed individual models
-- Geospatial and time-based features added clear predictive value
 
 ---
